@@ -1292,9 +1292,6 @@ a {
 
 
 
-
-
-
 /* User Dropdown Styles */
 .user-dropdown {
     position: relative;
@@ -1314,12 +1311,12 @@ a {
     cursor: pointer;
     transition: var(--transition);
 }
-
+/* 
 
 .user-profile-btn>span,
 .user-profile-btn>i:nth-child(3) {
     display: none;
-}
+} */
 
 .user-profile-btn:hover {
     background-color: var(--gray-light);
@@ -1332,13 +1329,13 @@ a {
 }
 
 .user-profile-btn i:last-child {
-    font-size: 0.8rem;
+    /* font-size: 0.8rem; */
     color: var(--text-lighter);
     transition: var(--transition);
 }
 
 .user-dropdown.active .user-profile-btn i:last-child {
-    transform: rotate(180deg);
+    transform: rotate(180deg) translateX(25%);
 }
 
 .dropdown-menu {

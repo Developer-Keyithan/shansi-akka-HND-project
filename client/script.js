@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
     initCategoryFilters();
     updateCartCount();
     initSearch();
+    performLogin();
 });
 
 // Product Functions
@@ -178,6 +179,73 @@ function debounce(func, wait) {
         clearTimeout(timeout);
         timeout = setTimeout(later, wait);
     };
+}
+
+function performLogin() {
+    const loginForm = document.getElementById('loginForm');
+    if (loginForm) {
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const email = document.getElementById('modal-email').value;
+            const password = document.getElementById('modal-password').value;
+
+            // Simple validation
+            if (!email || !password) {
+                showNotification('Please fill in all fields', 'error');
+                return;
+            }
+
+            // Mock authentication
+            const mockUsers = window.users;
+
+            const user = mockUsers.find(u => u.email === email && u.password === password);
+
+            if (user) {
+                // Store user data
+                currentUser = {
+                    id: Date.now(),
+                    email: user.email,
+                    name: user.name,
+                    role: user.role
+                };
+
+                localStorage.setItem('helthybite-user', JSON.stringify(currentUser));
+
+                showNotification('Login successful! Redirecting...', 'success');
+
+                // Close modal
+                if (loginModal) {
+                    loginModal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+
+                // Update user menu
+                // Update the navbar
+                if (window.Navbar && typeof window.Navbar.updateUserMenu === 'function') {
+                    window.Navbar.updateUserMenu();
+                    setTimeout(window.Navbar.initDropdowns(), 100);
+                }
+
+                // Redirect based on role
+                setTimeout(() => {
+                    switch (user.role) {
+                        case 'admin':
+                            window.location.href = 'dashboard/admin.html';
+                            break;
+                        case 'seller':
+                            window.location.href = 'dashboard/seller.html';
+                            break;
+                        default:
+                            window.location.href = 'dashboard/consumer.html';
+                    }
+                }, 1500);
+
+            } else {
+                showNotification('Invalid email or password', 'error');
+            }
+        });
+    }
 }
 
 // Export functions for use in other modules

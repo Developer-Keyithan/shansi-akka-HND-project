@@ -34,6 +34,10 @@ function toggleSearchBar() {
 
 // User Menu
 function updateUserMenu() {
+    const userData = localStorage.getItem('helthybite-user');
+    const currentUser = userData ? JSON.parse(userData) : null;
+    if (!currentUser) return;
+
     const userMenu = document.querySelector('.user-menu');
     if (!userMenu) return;
 
@@ -56,6 +60,7 @@ function updateUserMenu() {
                 </div>
             </div>
         `;
+
     } else {
         // Not logged in buttons
         userMenu.innerHTML = `

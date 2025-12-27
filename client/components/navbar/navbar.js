@@ -18,9 +18,9 @@ fetch(navbarHTMLPath)
         if (window.Navbar) {
             Navbar.initNavigation();
             Navbar.toggleSearchBar();
+            Navbar.setActiveNav();
             Navbar.updateUserMenu();
             Navbar.initDropdowns();
-            Navbar.setActiveNav();
         }
 
         if (window.HelthyBite?.updateCartCount) {
